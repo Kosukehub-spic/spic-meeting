@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>シン・給与会議 プレゼンター確認シート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --or:    #E8620A;
+  --or2:   #BF4E07;
+  --or-lt: #FDE8D8;
+  --or-bg: #FFF6F0;
+  --dk:    #1C1C1C;
+  --md:    #555;
+  --lt:    #999;
+  --line:  #E8E0D8;
+  --red:   #B83232;
+  --red-bg:#FDF2F2;
+  --grn-bg:#F4FBF6;
+  --grn:   #2A7A4B;
+  --wh:    #FFFFFF;
+  --bg:    #F8F4F0;
+  --serif: 'Noto Serif JP', serif;
+  --sans:  'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--dk);
+  min-height: 100vh;
+}
+
+/* ── TOP HEADER ─────────────────────────── */
+.site-header {
+  background: var(--or);
+  padding: 28px 40px 22px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(232,98,10,.25);
+}
+.header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; }
+.header-title {
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 700;
+  color: #fff; letter-spacing: .06em;
+}
+.header-sub { font-size: 11px; color: rgba(255,255,255,.75); letter-spacing: .04em; }
+.header-rule {
+  margin-left: auto;
+  background: rgba(0,0,0,.18);
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 10px; color: rgba(255,255,255,.88);
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+/* ── MONTH TABS ─────────────────────────── */
+.tab-bar {
+  background: var(--or2);
+  display: flex;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.tab-bar button {
+  flex: none;
+  padding: 12px 28px;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  color: rgba(255,255,255,.65);
+  letter-spacing: .06em;
+  border-bottom: 3px solid transparent;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+.tab-bar button:hover { color: rgba(255,255,255,.9); }
+.tab-bar button.active { color: #fff; border-bottom-color: #fff; }
+
+/* ── MAIN LAYOUT ─────────────────────────── */
+.main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 60px; }
+
+.month-panel { display: none; }
+.month-panel.active { display: block; }
+
+/* ── MONTH INTRO ─────────────────────────── */
+.month-intro {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--line);
+}
+.month-badge {
+  font-family: var(--serif);
+  font-size: 36px; font-weight: 700;
+  color: var(--or); line-height: 1;
+  min-width: 56px;
+}
+.month-theme {
+  font-size: 13px; color: var(--md);
+  line-height: 1.6;
+}
+.month-theme strong { display: block; font-size: 16px; color: var(--dk); font-family: var(--serif); margin-bottom: 2px; }
+.month-total {
+  margin-left: auto;
+  font-size: 12px; font-weight: 700;
+  color: var(--or);
+  border: 2px solid var(--or);
+  border-radius: 20px;
+  padding: 4px 14px;
+  white-space: nowrap;
+}
+
+/* ── SESSION CARD ─────────────────────────── */
+.session-list { display: flex; flex-direction: column; gap: 12px; }
+
+.s-card {
+  background: var(--wh);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--or);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.s-card:hover { box-shadow: 0 4px 20px rgba(232,98,10,.1); }
+.s-card.common { border-left-color: #C0A882; }
+
+/* Card header — always visible */
+.s-head {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  background: var(--or-bg);
+  padding: 0;
+  user-select: none;
+}
+.s-card.common .s-head { background: #FAF6F1; }
+
+.s-num {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%; min-height: 58px;
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 700;
+  color: var(--or);
+  border-right: 1px solid var(--line);
+}
+.s-card.common .s-num { color: #C0A882; }
+
+.s-title-wrap { padding: 12px 16px; }
+.s-name {
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 700;
+  color: var(--dk);
+}
+.s-sub { font-size: 11px; color: var(--md); margin-top: 2px; }
+
+.s-right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  padding: 12px 16px;
+}
+.s-time {
+  background: var(--or);
+  color: #fff;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 11px; border-radius: 20px;
+  white-space: nowrap;
+}
+.s-card.common .s-time { background: #C0A882; }
+.s-month { font-size: 10px; color: var(--lt); }
+.s-chevron {
+  font-size: 10px; color: var(--or);
+  transition: transform .2s;
+  padding: 0 8px;
+  align-self: center;
+}
+.s-card.open .s-chevron { transform: rotate(180deg); }
+
+/* Card body — collapsible */
+.s-body {
+  display: none;
+  border-top: 1px solid var(--line);
+}
+.s-card.open .s-body { display: block; }
+
+/* THREE-COLUMN INFO LAYOUT */
+.info-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+}
+@media (max-width: 680px) {
+  .info-cols { grid-template-columns: 1fr; }
+}
+
+.info-col {
+  padding: 18px 20px;
+  border-right: 1px solid var(--line);
+}
+.info-col:last-child { border-right: none; }
+
+.info-col.purpose { background: var(--or-bg); }
+.info-col.tone    { background: var(--grn-bg); }
+.info-col.ng      { background: var(--red-bg); }
+
+.col-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.col-label .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.purpose .col-label { color: var(--or2); }
+.purpose .dot { background: var(--or); }
+.tone    .col-label { color: var(--grn); }
+.tone    .dot { background: var(--grn); }
+.ng      .col-label { color: var(--red); }
+.ng      .dot { background: var(--red); }
+
+.col-text {
+  font-size: 12px; line-height: 1.75;
+  color: var(--dk);
+}
+.ng .col-text { color: var(--red); }
+
+/* Scenario accordion */
+.scenario-bar {
+  border-top: 1px solid var(--line);
+  background: #FAF8F5;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  font-size: 11px; color: var(--md);
+  user-select: none;
+}
+.scenario-bar:hover { background: #F5F0EA; }
+.scenario-bar .arrow { color: var(--or); font-size: 10px; transition: transform .2s; }
+.scenario-bar.open .arrow { transform: rotate(180deg); }
+
+.scenario-body {
+  display: none;
+  padding: 14px 20px 16px;
+  background: #FAF8F5;
+  border-top: 1px solid var(--line);
+  font-size: 12px; color: var(--md); line-height: 1.75;
+}
+.scenario-bar.open + .scenario-body { display: block; }
+.scenario-body .flow { color: var(--or); font-weight: 700; }
+
+.chat-line { margin-top: 10px; font-size: 11px; color: var(--lt); }
+.chat-line strong { color: var(--md); }
+
+.presenter-line {
+  font-size: 10px; color: var(--lt);
+  border-top: 1px solid var(--line);
+  padding: 8px 20px;
+  background: #FAF8F5;
+}
+
+/* ── REFERENCE PANEL ─────────────────────── */
+.ref-panel {
+  margin-top: 32px;
+  border: 1px solid var(--line);
+  border-radius: 8px; overflow: hidden;
+}
+.ref-head {
+  background: var(--dk); color: #fff;
+  padding: 12px 20px;
+  font-family: var(--serif); font-size: 13px; font-weight: 700;
+  letter-spacing: .04em;
+}
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.ref-item {
+  padding: 16px 20px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--wh);
+}
+.ref-item:last-child { border-right: none; }
+.ref-label { font-size: 9px; font-weight: 700; color: var(--or); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+.ref-text  { font-size: 11px; color: var(--md); line-height: 1.7; }
+
+/* ── FOOTER ──────────────────────────────── */
+footer { text-align: center; padding: 24px; font-size: 10px; color: var(--lt); }
+
+@media print {
+  .site-header { position: static; }
+  .tab-bar { display: none; }
+  .month-panel { display: block !important; }
+  .s-body { display: block !important; }
+  .scenario-body { display: block !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-title">シン・給与会議　プレゼンター確認シート</span>
+    <span class="header-sub">各自のセクションの「目的・トーン・NGライン」をすぐ確認できます</span>
+    <span class="header-rule">共通NG：定量的すぎる話 ／ 報告で終わる ／ 数字の羅列</span>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="active" onclick="showTab('apr',this)">4月　市場の声</button>
+  <button onclick="showTab('may',this)">5月　管理・基盤</button>
+  <button onclick="showTab('jun',this)">6月　未来の挑戦</button>
+  <button onclick="showTab('all',this)">全月共通セッション</button>
+</div>
+
+<main class="main">
+
+<!-- ═══════════ 4月 ═══════════ -->
+<div class="month-panel active" id="tab-apr">
+  <div class="month-intro">
+    <div class="month-badge">4月</div>
+    <div class="month-theme">
+      <strong>市場の声を共有し合い、学びを得る</strong>
+      全85分　7セッション
+    </div>
+    <div class="month-total">計 85分</div>
+  </div>
+
+  <div class="session-list">
+
+    <!-- 1 My Wellness -->
+    <div class="s-card common open">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">1</div>
+        <div class="s-title-wrap">
+          <div class="s-name">My Wellness</div>
+          <div class="s-sub">開幕・場を温める</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">★ 5分</span>
+          <span class="s-month">4・5・6月 共通</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">会議への参加意欲を引き出す。Wellnessを「会社の話」でなく「1メンバー」として受け取ってもらう。司会の自己開示から始めることで、場の心理的安全性を作る。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">軽妙・身近・笑える。自分のWellness体験を素直に話す</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">説明的・講義調になると場が冷める。完璧なWellness人間を演じない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 司会の自己紹介 <span class="flow">→</span> ② My Wellness Experienceを一つだけシェア <span class="flow">→</span> ③「みなさんは最近どうですか？」とチャットへ投げる
+          <div class="chat-line"><strong>チャット例：</strong>「最近、自分のウェルネスで試していることをチャットに一言おねがいします」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 2 CEO Speech -->
+    <div class="s-card common">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">2</div>
+        <div class="s-title-wrap">
+          <div class="s-name">CEO Speech</div>
+          <div class="s-sub">社長の見ている景色を、全社員の視点にする</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">★ 15分</span>
+          <span class="s-month">4・5・6月 共通</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">社長が今見ている市場・会社・優先事項を直接届ける。全社利益・KPIを含め経営の現在地を透明に共有する。その月のテーマに沿った発言を必ず織り込む。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">「市場の景色」「経営判断の背景」を率直に語る。利益・KPIは必ず共有。「だから今、これが優先事項だ」という一言で締める</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">個別具体の指摘等は含めない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 全社の利益・KPI・経営の現在地を共有 <span class="flow">→</span> ② 社長が今見ている市場・業界の景色 <span class="flow">→</span> ③「だから今、全社はここに注力する」という優先事項の一言
+          <div class="chat-line"><strong>チャット例：</strong>「面白い、実践してみたい、ということがあればチャットに投げてみてください」</div>
+        </div>
+        <div class="presenter-line">担当：社長（固定）</div>
+      </div>
+    </div>
+
+    <!-- 3 Brand Pitch -->
+    <div class="s-card common">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">3</div>
+        <div class="s-title-wrap">
+          <div class="s-name">Brand Pitch</div>
+          <div class="s-sub">ブランドの今を、全員の話にする</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">30分 月次ローテ</span>
+          <span class="s-month">4・5・6月 共通</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">ブランドの世界観・現在地・課題を全社員が理解し共感する。「自分も貢献できる・したい」という自発的協力者を増やす。部署を超えた連帯感を作る。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">数字より「物語と現在地」。「ここ、正直に言うと助けてほしい」という率直な一言。チームへの称賛を忘れない</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">数字の羅列・成果自慢で終わる・課題を隠す。ブランドの一覧紹介にしない——一つのブランドに集中して深く語る</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① ブランドの世界観と目指す姿 <span class="flow">→</span> ② 現在地と正直な課題 <span class="flow">→</span> ③「一緒にここを解きたい」と協力者を募る問いかけ
+          <div class="chat-line"><strong>チャット例：</strong>「このブランドで、こういうことできるんじゃないかな？ということがあればチャットに投げてください！」</div>
+        </div>
+        <div class="presenter-line">担当：登壇ブランドの室長（月次ローテーション）　／　次回ブランドの指名は室長が行う</div>
+      </div>
+    </div>
+
+    <!-- 4 User Voice -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">4</div>
+        <div class="s-title-wrap">
+          <div class="s-name">User Voice</div>
+          <div class="s-sub">顧客の生の声を、全社で受け取る</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">10分</span>
+          <span class="s-month">4月のみ</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">蓄積されている消費者の声・データを届ける。声を生んだ施策の背景と立役者を全社で共有する。施策→声の因果を理解させる。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">まず施策の概要を一言で説明してから声を紹介。声を生んだ立役者を必ず名指しで称える。良い声も厳しい声も等分に届ける</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">声だけ届けて終わる。施策との文脈なしに「こんな声がありました」だけにしない。反省会にしない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① この声が上がった背景にある施策を一言で紹介 <span class="flow">→</span> ② 実際の声を2〜3件届ける <span class="flow">→</span> ③ 施策の立役者を紹介・称える <span class="flow">→</span> ④ チャットへ投げかけ
+          <div class="chat-line"><strong>チャット例：</strong>「User Voiceの中で、一番刺さったVoiceはどれでしたか？」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 5 Professional Voice -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">5</div>
+        <div class="s-title-wrap">
+          <div class="s-name">Professional Voice</div>
+          <div class="s-sub">施策が生んだプロの評価を、全社で受け取る</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">10分</span>
+          <span class="s-month">4月のみ</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">医師・サロンなど専門家からの評価を届ける。評価が「棚ぼた」ではなく「施策の成果」であることを全員が理解する。担当者へのリスペクトと品質意識を全社で一致させる。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">評価を紹介する前に「この評価が生まれた施策の背景」を一言で語る。プロの言葉はそのまま引用。評価を引き出した立役者を必ず紹介する</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">「こう評価されました」報告だけで終わる。施策との文脈なしに紹介しない。専門用語だけで全員が置いてけぼりにならない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 評価が生まれた背景にある施策を一言で紹介 <span class="flow">→</span> ② プロからの評価を2〜3件届ける <span class="flow">→</span> ③ 立役者を紹介・称える <span class="flow">→</span> ④ チャットへ投げかけ
+          <div class="chat-line"><strong>チャット例：</strong>「ほかにもこういう声が知りたい、などあればチャットに投げてみてください、担当が回答します！」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 6 Media Voice -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">6</div>
+        <div class="s-title-wrap">
+          <div class="s-name">Media Voice</div>
+          <div class="s-sub">施策が生んだ社会の目線を、全社で受け取る</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">10分</span>
+          <span class="s-month">4月のみ</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">メディアに取り上げられた内容・評価を届ける。露出が「運」ではなく「施策の成果」であることを全員が理解する。「自分たちの仕事が社会に届いている」という誇りを引き出す。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">露出を紹介する前に「掲載が生まれた施策の背景」を一言で語る。メディアの視点はそのまま届ける。露出を生んだ立役者を必ず紹介する</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">「取り上げられました」報告だけで終わる。施策との文脈なしに紹介しない。自慢話にしない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 露出が生まれた背景にある施策を一言で紹介 <span class="flow">→</span> ② メディアの評価・内容を届ける <span class="flow">→</span> ③ 立役者を紹介・称える <span class="flow">→</span> ④ チャットへ問いかけ
+          <div class="chat-line"><strong>チャット例：</strong>「ほかにも皆さんが見たメディアやタレントさんなどの声はありますか？」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 7 CxO Closing -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">7</div>
+        <div class="s-title-wrap">
+          <div class="s-name">CxO Closing　<span style="font-size:12px;font-weight:400;color:#999">大瀬戸さん</span></div>
+          <div class="s-sub">一経営陣の言葉で、明日への意欲を灯す</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">★ 5分</span>
+          <span class="s-month">4月</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">その月のアジェンダを総括し、CxO個人の言葉でメッセージを届ける。経営陣一人の人間としての受け取り方を見せることで「よし、頑張ろう」を引き出す。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">今日のアジェンダの中で「自分が一番刺さった話」を一つ選んで語る。テンプレを破る「色」を出すことが最大の使命</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">まとめだけで終わる・個性がない・全部に触れようとして薄くなる</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 今日の会議全体の総括を一言で <span class="flow">→</span> ②「個人的に一番刺さったこと」<span class="flow">→</span> ③ 社員への個人的なメッセージで締める
+          <div class="chat-line"><strong>チャット例：</strong>「今日の会議で持ち帰りたいことを、一言チャットに書いてください！」</div>
+        </div>
+        <div class="presenter-line">担当：月次ローテーション制　／　翌月の担当CxOを指名して終了</div>
+      </div>
+    </div>
+
+  </div><!-- /session-list -->
+</div><!-- /tab-apr -->
+
+<!-- ═══════════ 5月 ═══════════ -->
+<div class="month-panel" id="tab-may">
+  <div class="month-intro">
+    <div class="month-badge">5月</div>
+    <div class="month-theme">
+      <strong>管理・基盤のナレッジや状況を知る</strong>
+      全75分　6セッション
+    </div>
+    <div class="month-total">計 75分</div>
+  </div>
+  <div class="session-list">
+
+    <!-- My Wellness / CEO Speech / Brand Pitch — common ref -->
+    <div class="s-card common">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">1–3</div>
+        <div class="s-title-wrap">
+          <div class="s-name">My Wellness　／　CEO Speech　／　Brand Pitch</div>
+          <div class="s-sub">全月共通セッション　設計内容は4月と同一</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">5・15・30分</span>
+          <span class="s-month">共通タブで確認</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div style="padding:16px 20px;font-size:12px;color:var(--md);">
+          設計内容は4月と同じです。「全月共通セッション」タブで確認してください。
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Business Excellence -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">4</div>
+        <div class="s-title-wrap">
+          <div class="s-name">Business Excellence</div>
+          <div class="s-sub">縁の下の力持ちに、スポットライトを当てる（事業基盤本部）</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">10分</span>
+          <span class="s-month">5月のみ</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">普段見えにくい部署（事業基盤本部）の仕事・改善・挑戦を全社員が知る。部署のプレゼンスを上げ、他部署との協力体制を強固にする。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">日々の改善・技術的な工夫・今後の挑戦を具体的に。「実はここで困っています」という本音も</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">地味な報告会にしない。「業務が回っています」報告だけで終わらない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ①「実はこんなことをやっています」という驚きの一言 <span class="flow">→</span> ② 直近の改善・成果 <span class="flow">→</span> ③「ここの協力があると助かる」と他部署に呼びかけ
+          <div class="chat-line"><strong>チャット例：</strong>「この部署の仕事で、知らなかったこと・驚いたことがあれば教えてください」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 5 Back Office -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">5</div>
+        <div class="s-title-wrap">
+          <div class="s-name">Back Office</div>
+          <div class="s-sub">縁の下の力持ちに、スポットライトを当てる（コーポレート本部）</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">10分</span>
+          <span class="s-month">5月のみ</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">普段見えにくい部署（コーポレート本部）の仕事・改善・挑戦を全社員が知る。部署のプレゼンスを上げ、他部署との協力体制を強固にする。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">日々の改善・制度の工夫・今後の挑戦を具体的に。「実はここで困っています」という本音も</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">地味な報告会にしない。「業務が回っています」報告だけで終わらない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ①「実はこんなことをやっています」という驚きの一言 <span class="flow">→</span> ② 直近の改善・成果 <span class="flow">→</span> ③「ここの協力があると助かる」と他部署に呼びかけ
+          <div class="chat-line"><strong>チャット例：</strong>「この部署の仕事で、知らなかったこと・驚いたことがあれば教えてください」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 6 CxO Closing May -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">6</div>
+        <div class="s-title-wrap">
+          <div class="s-name">CxO Closing　<span style="font-size:12px;font-weight:400;color:#999">西守さん</span></div>
+          <div class="s-sub">一経営陣の言葉で、明日への意欲を灯す</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">★ 5分</span>
+          <span class="s-month">5月</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">その月のアジェンダを総括し、CxO個人の言葉でメッセージを届ける。経営陣一人の人間としての受け取り方を見せることで「よし、頑張ろう」を引き出す。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">今日のアジェンダの中で「自分が一番刺さった話」を一つ選んで語る。テンプレを破る「色」を出すことが最大の使命</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">まとめだけで終わる・個性がない・全部に触れようとして薄くなる</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 今日の会議全体の総括を一言で <span class="flow">→</span> ②「個人的に一番刺さったこと」<span class="flow">→</span> ③ 社員への個人的なメッセージで締める
+          <div class="chat-line"><strong>チャット例：</strong>「今日の会議で持ち帰りたいことを、一言チャットに書いてください！」</div>
+        </div>
+        <div class="presenter-line">担当：月次ローテーション制　／　翌月の担当CxOを指名して終了</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 6月 ═══════════ -->
+<div class="month-panel" id="tab-jun">
+  <div class="month-intro">
+    <div class="month-badge">6月</div>
+    <div class="month-theme">
+      <strong>未来への挑戦にわくわくする</strong>
+      全75分　6セッション
+    </div>
+    <div class="month-total">計 75分</div>
+  </div>
+  <div class="session-list">
+
+    <div class="s-card common">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">1–3</div>
+        <div class="s-title-wrap">
+          <div class="s-name">My Wellness　／　CEO Speech　／　Brand Pitch</div>
+          <div class="s-sub">全月共通セッション　設計内容は4月と同一</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">5・15・30分</span>
+          <span class="s-month">共通タブで確認</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div style="padding:16px 20px;font-size:12px;color:var(--md);">設計内容は4月と同じです。「全月共通セッション」タブで確認してください。</div>
+      </div>
+    </div>
+
+    <!-- 4 Global -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">4</div>
+        <div class="s-title-wrap">
+          <div class="s-name">Global</div>
+          <div class="s-sub">SPICの地図を、世界まで広げる</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">10分</span>
+          <span class="s-month">6月のみ</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">グローバル展開の時間軸・現在地・戦略を全社員が理解する。「世界を目指している会社にいる」という誇りと自発的な協力者を生む。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">時間軸・現在地・戦略の3点を必ず入れる。「今、誰の協力があれば加速するか」という問いで締める</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">遠い話・自分には関係ない話に聞こえるとNG。自分ごと感を必ず作る</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ①「SPICが目指す世界」を一言で <span class="flow">→</span> ② 現在地と時間軸 <span class="flow">→</span> ③「この挑戦を一緒にやりたい人へ」と協力者を募る
+          <div class="chat-line"><strong>チャット例：</strong>「グローバル展開に関して、企てがあればチャットに投げてみてください！」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 5 CEO Project -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">5</div>
+        <div class="s-title-wrap">
+          <div class="s-name">CEO Project</div>
+          <div class="s-sub">社長室の挑戦を、全社の挑戦にする</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">10分</span>
+          <span class="s-month">6月のみ</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">走っているプロジェクトの目標・成果・社会的インパクトを全社員が理解する。「社長室だけの話」にせず自発的な協力者・応援者を生む。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">目標・成果・社会へのインパクトの3点を丁寧に。「関わりたい方はぜひ」と協力者を明示的に募る</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">「社長室がやっています」報告にしない。社員に関係のない話に聞こえるとNG</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① プロジェクトの「なぜこれをやるのか」<span class="flow">→</span> ② 現在地と成果 <span class="flow">→</span> ③「関わりたい方はぜひ」と協力者を募る
+          <div class="chat-line"><strong>チャット例：</strong>「このプロジェクト、あなたの視点で面白いと思った点・気になった点を」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+
+    <!-- 6 CxO Closing Jun -->
+    <div class="s-card">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">6</div>
+        <div class="s-title-wrap">
+          <div class="s-name">CxO Closing　<span style="font-size:12px;font-weight:400;color:#999">片峰さん</span></div>
+          <div class="s-sub">一経営陣の言葉で、明日への意欲を灯す</div>
+        </div>
+        <div class="s-right">
+          <span class="s-time">★ 5分</span>
+          <span class="s-month">6月</span>
+        </div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">その月のアジェンダを総括し、CxO個人の言葉でメッセージを届ける。経営陣一人の人間としての受け取り方を見せることで「よし、頑張ろう」を引き出す。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">今日のアジェンダの中で「自分が一番刺さった話」を一つ選んで語る。テンプレを破る「色」を出すことが最大の使命</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">まとめだけで終わる・個性がない・全部に触れようとして薄くなる</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 今日の会議全体の総括を一言で <span class="flow">→</span> ②「個人的に一番刺さったこと」<span class="flow">→</span> ③ 社員への個人的なメッセージで締める
+          <div class="chat-line"><strong>チャット例：</strong>「今日の会議で持ち帰りたいことを、一言チャットに書いてください！」</div>
+        </div>
+        <div class="presenter-line">担当：月次ローテーション制　／　翌月の担当CxOを指名して終了</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 全月共通 ═══════════ -->
+<div class="month-panel" id="tab-all">
+  <div class="month-intro">
+    <div class="month-badge" style="font-size:22px;min-width:72px;">全月<br>共通</div>
+    <div class="month-theme">
+      <strong>4月・5月・6月すべてに登場するセッション</strong>
+      My Wellness（5分）　CEO Speech（15分）　Brand Pitch（30分）
+    </div>
+  </div>
+  <div class="session-list">
+    <!-- My Wellness full copy -->
+    <div class="s-card common open">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">—</div>
+        <div class="s-title-wrap">
+          <div class="s-name">My Wellness</div>
+          <div class="s-sub">開幕・場を温める</div>
+        </div>
+        <div class="s-right"><span class="s-time">★ 5分</span></div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">会議への参加意欲を引き出す。Wellnessを「会社の話」でなく「1メンバー」として受け取ってもらう。司会の自己開示から始めることで、場の心理的安全性を作る。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">軽妙・身近・笑える。自分のWellness体験を素直に話す</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">説明的・講義調になると場が冷める。完璧なWellness人間を演じない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 司会の自己紹介 <span class="flow">→</span> ② My Wellness Experienceを一つだけシェア <span class="flow">→</span> ③「みなさんは最近どうですか？」とチャットへ投げる
+          <div class="chat-line"><strong>チャット例：</strong>「最近、自分のウェルネスで試していることをチャットに一言おねがいします」</div>
+        </div>
+        <div class="presenter-line">担当：持ち回り制　／　このセクション内で翌Qのプレゼンターを指名</div>
+      </div>
+    </div>
+    <!-- CEO Speech -->
+    <div class="s-card common">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">—</div>
+        <div class="s-title-wrap">
+          <div class="s-name">CEO Speech</div>
+          <div class="s-sub">社長の見ている景色を、全社員の視点にする</div>
+        </div>
+        <div class="s-right"><span class="s-time">★ 15分</span></div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">社長が今見ている市場・会社・優先事項を直接届ける。全社利益・KPIを含め経営の現在地を透明に共有する。その月のテーマに沿った発言を必ず織り込む。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">「市場の景色」「経営判断の背景」を率直に語る。利益・KPIは必ず共有。「だから今、これが優先事項だ」という一言で締める</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">個別具体の指摘等は含めない</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① 全社の利益・KPI・経営の現在地を共有 <span class="flow">→</span> ② 社長が今見ている市場・業界の景色 <span class="flow">→</span> ③「だから今、全社はここに注力する」という優先事項の一言
+          <div class="chat-line"><strong>チャット例：</strong>「面白い、実践してみたい、ということがあればチャットに投げてみてください」</div>
+        </div>
+        <div class="presenter-line">担当：社長（固定）</div>
+      </div>
+    </div>
+    <!-- Brand Pitch -->
+    <div class="s-card common">
+      <div class="s-head" onclick="toggleCard(this)">
+        <div class="s-num">—</div>
+        <div class="s-title-wrap">
+          <div class="s-name">Brand Pitch</div>
+          <div class="s-sub">ブランドの今を、全員の話にする</div>
+        </div>
+        <div class="s-right"><span class="s-time">30分 月次ローテ</span></div>
+        <span class="s-chevron">▾</span>
+      </div>
+      <div class="s-body">
+        <div class="info-cols">
+          <div class="info-col purpose">
+            <div class="col-label"><span class="dot"></span>目的・狙い</div>
+            <div class="col-text">ブランドの世界観・現在地・課題を全社員が理解し共感する。「自分も貢献できる・したい」という自発的協力者を増やす。部署を超えた連帯感を作る。</div>
+          </div>
+          <div class="info-col tone">
+            <div class="col-label"><span class="dot"></span>推奨トーン・内容</div>
+            <div class="col-text">数字より「物語と現在地」。「ここ、正直に言うと助けてほしい」という率直な一言。チームへの称賛を忘れない</div>
+          </div>
+          <div class="info-col ng">
+            <div class="col-label"><span class="dot"></span>NGライン</div>
+            <div class="col-text">数字の羅列・成果自慢で終わる・課題を隠す。ブランドの一覧紹介にしない——一つのブランドに集中して深く語る</div>
+          </div>
+        </div>
+        <div class="scenario-bar" onclick="toggleScenario(this)">
+          <span class="arrow">▾</span> 話の流れ・チャット投げかけ例を見る
+        </div>
+        <div class="scenario-body">
+          ① ブランドの世界観と目指す姿 <span class="flow">→</span> ② 現在地と正直な課題 <span class="flow">→</span> ③「一緒にここを解きたい」と協力者を募る問いかけ
+          <div class="chat-line"><strong>チャット例：</strong>「このブランドで、こういうことできるんじゃないかな？ということがあればチャットに投げてください！」</div>
+        </div>
+        <div class="presenter-line">担当：登壇ブランドの室長（月次ローテーション）　／　次回ブランドの指名は室長が行う</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Reference Panel ─────────────── -->
+<div class="ref-panel" style="margin-top:32px;">
+  <div class="ref-head">会議を動かす共通ルール</div>
+  <div class="ref-grid">
+    <div class="ref-item">
+      <div class="ref-label">司会の選出</div>
+      <div class="ref-text">リレー形式。初回は事務局。以降は前回の司会者が翌回の司会者を指名して終了する。</div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-label">次回プレゼンター</div>
+      <div class="ref-text">各本部・室に選出を任せる。第一回は本部長・室長が登壇。以降は「次に表に立ってほしい」人材を指名する。</div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-label">チャットを動かす仕掛け</div>
+      <div class="ref-text">各セクション担当者が必ず一つ問いかけを行う。役員・本部長・室長が率先して書き込み、場の空気を作る。コメントへのリアクションで場を閉じること。</div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-label">全セクション共通 NG</div>
+      <div class="ref-text" style="color:var(--red);">定量的すぎる話　／　報告で終わる　／　数字の羅列</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>株式会社スピック　シン・給与会議 設計書　2026年4月〜　／　本資料は各セクション担当者向けの設計参考資料です</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.month-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleCard(head) {
+  head.closest('.s-card').classList.toggle('open');
+}
+function toggleScenario(bar) {
+  bar.classList.toggle('open');
+}
+window.onbeforeprint = () => {
+  document.querySelectorAll('.month-panel').forEach(p => p.classList.add('active'));
+  document.querySelectorAll('.s-card').forEach(c => c.classList.add('open'));
+  document.querySelectorAll('.scenario-bar').forEach(b => b.classList.add('open'));
+};
+</script>
+</body>
+</html>
